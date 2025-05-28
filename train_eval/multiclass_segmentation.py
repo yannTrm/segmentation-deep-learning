@@ -1,5 +1,4 @@
 from typing import Dict, Optional, Callable
-
 from .base_segmentation import SegmentationModel
 
 class MulticlassSegmentationModel(SegmentationModel):
@@ -34,12 +33,14 @@ class MulticlassSegmentationModel(SegmentationModel):
         save_interval: int = 1,
         **kwargs,
     ):
+        # Ensure loss_mode is set to "multiclass" in kwargs
+        kwargs["loss_mode"] = "multiclass"
+
         super().__init__(
             arch=arch,
             encoder_name=encoder_name,
             in_channels=in_channels,
             out_classes=out_classes,
-            loss_mode="multiclass",
             loss_fn=loss_fn,
             optimizer=optimizer,
             optimizer_kwargs=optimizer_kwargs,
